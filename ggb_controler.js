@@ -2,7 +2,7 @@
 var parameters = {
     "id": "ggbApi",
     "appName": "graphing",
-    "width": 748,
+    // "width": 70,
     "height": 500,
     "showToolBar": false,
     "borderColor": null,
@@ -77,7 +77,7 @@ function ggbReset(api) {
 
 // Dealing with writhe
 var tableData = [
-    ["writhe", "A", "B", "C", "D", "writheType", "perturbation size", "points perturbated"]
+    ["writhe", "A", "B", "C", "D", "writheType", "perturbations"]
 ];
 var currentWrithe = "---"; // "---" or a double
 var A;
@@ -86,7 +86,7 @@ var C;
 var D;
 var writheType;
 var eps;
-var perturbated;
+var perturbations = [0, 0, 0, 0];
 
 function updateWrithe(api) {
     if (api.exists('D') && api.exists('C') &&
@@ -98,32 +98,25 @@ function updateWrithe(api) {
 
         writheType = document.getElementById("writheType").value;
         eps = parseFloat(document.getElementById("eps").value);
-        perturbated = [];
-        for (var p of ['A', 'B', 'C', 'D'])
-            if (document.getElementById(p).checked) perturbated.push(p);
-        perturbations = {
-            'A': 0,
-            'B': 0,
-            'C': 0,
-            'D': 0,
-        };
-        for (var p of perturbated) perturbations[p] += eps;
+        const points = ['A', 'B', 'C', 'D'];
+        for (var i = 0; i < 4; ++i)
+            perturbations[i] = (document.getElementById(points[i]).checked ? eps : 0);
 
         currentWrithe = writheCalculator(A, B, C, D, writheType, perturbations);
 
         // Display on screen
         var prec = 4; // precision to display writhe
-        document.getElementById("currentWritheStr").innerHTML = "writhe: " + currentWrithe.toPrecision(prec) + " ";
+        document.getElementById("currentWritheStr").innerHTML = "Writhe: " + currentWrithe.toPrecision(prec) + " ";
     } else {
         currentWrithe = "---";
-        document.getElementById("currentWritheStr").innerHTML = "writhe: " + currentWrithe + " ";
+        document.getElementById("currentWritheStr").innerHTML = "Writhe: " + currentWrithe + " ";
     }
 }
 
 // Pre: A, B, C and D exist and writhe is calculated in currentWrithe
 function saveWritheToTable() {
     // Save data with full precision
-    tableData.push([currentWrithe, A, B, C, D, writheType, eps, perturbated]);
+    tableData.push([currentWrithe, A, B, C, D, writheType, perturbations]);
 
     // Insert data to Table with reduced precision
     var results = document.getElementById("results");
@@ -133,6 +126,8 @@ function saveWritheToTable() {
     var BData = row.insertCell(2);
     var CData = row.insertCell(3);
     var DData = row.insertCell(4);
+    var writheTypeTable = row.insertCell(5);
+    var perturbationsTable = row.insertCell(6);
 
     prec = 3;
     writheData.innerHTML = currentWrithe.toPrecision(prec);
@@ -140,6 +135,8 @@ function saveWritheToTable() {
     BData.innerHTML = "(" + B[0].toPrecision(prec) + ", " + B[1].toPrecision(prec) + ")";
     CData.innerHTML = "(" + C[0].toPrecision(prec) + ", " + C[1].toPrecision(prec) + ")";
     DData.innerHTML = "(" + D[0].toPrecision(prec) + ", " + D[1].toPrecision(prec) + ")";
+    writheTypeTable.innerHTML = writheType;
+    perturbationsTable.innerHTML = "(" + perturbations.join(", ") + ")";
 }
 
 function downloadTable(tableData) {
@@ -149,9 +146,11 @@ function downloadTable(tableData) {
     tableData.forEach(function(rowData) {
         for (var i = 0; i < rowData.length; ++i) {
             if (rowData[i] instanceof Array) {
-                if (typeof rowData[i][0] == 'number') {
-                    rowData[i] = '"' + rowData[i].toString() + ',0"';
-                } else rowData[i] = '"' + rowData[i].toString() + '"';
+                if (rowData[i].length == 2) { // Dealing with an array representing a 2D point
+                    rowData[i] = '"' + rowData[i].toString() + ',0"'; // to 3D
+                } else { // Dealing with any other array
+                    rowData[i] = '"' + rowData[i].toString() + '"';
+                }
             }
         }
         var row = rowData.join(",");

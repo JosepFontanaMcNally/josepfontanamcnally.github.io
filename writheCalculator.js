@@ -37,10 +37,10 @@ function writheCalculator(Acoords, Bcoords, Ccoords, Dcoords, writheType, pertur
     var C = new Point(Ccoords[0], Ccoords[1]);
     var D = new Point(Dcoords[0], Dcoords[1]);
 
-    A.z = A.z + perturbations["A"];
-    B.z = B.z + perturbations["B"];
-    C.z = C.z + perturbations["C"];
-    D.z = D.z + perturbations["D"];
+    A.z = A.z + perturbations[0];
+    B.z = B.z + perturbations[1];
+    C.z = C.z + perturbations[2];
+    D.z = D.z + perturbations[3];
 
     var AB = B.minus(A);
     var AC = C.minus(A);
@@ -68,8 +68,8 @@ function writheCalculator(Acoords, Bcoords, Ccoords, Dcoords, writheType, pertur
     // result
     var gli = 0;
     if (writheType == "derivada") {
-        var epsilon = Math.max(Math.abs(perturbations["A"]), Math.abs(perturbations["B"]),
-            Math.abs(perturbations["C"]), Math.abs(perturbations["D"]));
+        var epsilon = Math.max(Math.abs(perturbations[0]), Math.abs(perturbations[1]),
+            Math.abs(perturbations[2]), Math.abs(perturbations[3]));
         gli = sign * sum / (epsilon * 4 * Math.PI);
     } else if (writheType == "volum") {
         var V = Math.abs(AD.dot(BD.cross(CD))) / 6;

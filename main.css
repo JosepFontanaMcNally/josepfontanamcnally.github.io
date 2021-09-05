@@ -1,7 +1,11 @@
 body {
-    background-color: gray;
     margin: 0px;
     font-family: 'Avenir';
+    /* background-color: #b7c9e2; */
+    /* background-image: url('https://www.riverpointfamilydental.com/wp-content/uploads/2016/05/Background-fade.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; */
 }
 
 header {
@@ -11,21 +15,37 @@ header {
     background-color: black;
 }
 
+footer {
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* || Flex and Layout */
+
 section {
     display: flex;
     justify-content: center;
-    background-color: red;
-    gap: 10px;
+    /* gap: 0px; */
+    background-image: url('https://www.riverpointfamilydental.com/wp-content/uploads/2016/05/Background-fade.jpg');
+    background-size: cover;
 }
 
 .item {
-    background-color: blue;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    /* background-color: #b7c9e2; */
+    /* margin-top: 10px; */
+    margin: 0px;
+    padding: 0px;
+    position: relative;
 }
 
 .item.side {
     width: 30%;
+}
+
+.item.side div {
+    margin-right: 0px;
 }
 
 .item.main {
@@ -34,11 +54,129 @@ section {
 
 div {
     padding: 10px;
-    background-color: green;
-    margin-top: 5px;
+    /* background-color: green; */
+    /* border-radius: 10px; */
+    margin: 15px;
 }
 
-div.ggb div {
+/* || || Formating pannels */
+
+.pannel {
+    border-radius: 10px;
+    background-color: white;
+}
+
+/* || Download Pannel */
+
+.download {
+    padding: 3px 10px 10px 10px;
+}
+
+#Download {
+    background-image: url('https://thumbs.dreamstime.com/b/download-button-simple-vector-icon-internet-downloading-sign-download-simple-icon-internet-downloading-sign-vector-image-139011383.jpg');
+    background-size: 90%;
+    background-position: center;
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    top: 7px;
+    left: 7px;
+}
+
+/* || Results Pannel */
+
+.results {
+    overflow: auto;
+    height: 515px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+}
+
+th {
+    border-bottom: 2px solid #bbb;
+    width: 80px;
+}
+
+td {
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.TablePerturbations {
+    width: 120px;
+}
+
+/* || Toolbar Pannel */
+
+.toolbar form {
     padding: 0px;
     margin: 0px;
+    width: 100%;
+
+    display: table;
+    table-layout: fixed; /*Optional*/
+}
+
+.toolbar form div {
+    margin: 0px;
+    padding: 5px;
+
+    display: table-cell;
+}
+
+.type-related {
+    width: 20%;
+    text-align: center;
+}
+
+.perturbation-labels {
+    width: 30%;
+    text-align: right;
+}
+
+.perturbation-inputs {
+    width: 30%;
+    text-align: left;
+}
+
+.writhe-related {
+    width: 20%;
+    text-align: center;
+}
+
+#currentWritheStr {
+    margin-right: 10px;
+}
+
+/* || GeoGebra Pannel */
+
+.ggb, .ggb div {
+    padding: 0px;
+    border-radius: 10px;
+}
+
+.ggb {
+    position: relative;
+}
+
+.ggb div {
+    margin: 0px;
+    /* position: relative; */
+    /* left: -3px; */
+}
+
+#Clear {
+    position: absolute;
+    top: 19px;
+    right: 45px;
+    z-index: 10;
+    float: right;
 }
