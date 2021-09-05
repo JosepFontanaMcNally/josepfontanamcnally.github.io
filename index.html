@@ -5,56 +5,68 @@
     <title>Apps with Toolbar: Graphing Calculator</title>
     <meta name=viewport content="width=device-width,initial-scale=1">
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="main.css">
+    <!-- Coses de GeoGebra -->
     <script src="navigation.js"></script>
     <script type="text/javascript" src="deployggb.js"></script>
+    <script type="text/javascript" src="ggb_controler.js"></script>
+    <script type="text/javascript" src="writheCalculator.js"></script>
 </head>
 
 <body>
-    <div>
-        <h1>Apps with Toolbar: Graphing Calculator</h1>
+    <header>
+        <h1>Title</h1>
         <p style="width:800px">This page shows how to embed GeoGebra Graphing Calculator without construction in a webpage.
             For details about customization please refer to <a href="https://wiki.geogebra.org/en/Reference:Applet_Parameters">documentation</a>. Please check out embedding examples for our other apps:
         </p>
-        <a class="btn active" id="app_graphing" href="example-graphing.html">Graphing Calculator</a>
-        <a class="btn" id="app_geometry" href="example-geometry.html">Geometry</a>
-        <a class="btn" id="app_classic" href="example-tools.html">Classic</a>
+    </header>
 
-        <script type="text/javascript">
-            function perspective(p) {
-                updateHelp(p);
-                ggbApplet.setPerspective(p);
-            }
-            var parameters = {
-                "id": "ggbApplet",
-                "appName": "graphing",
-                "width": 800,
-                "height": 600,
-                "showToolBar": true,
-                "borderColor": null,
-                "showMenuBar": true,
-                "allowStyleBar": true,
-                "showAlgebraInput": true,
-                "enableLabelDrags": false,
-                "enableShiftDragZoom": true,
-                "capturingThreshold": null,
-                "showToolBarHelp": false,
-                "errorDialogsActive": true,
-                "showTutorialLink": true,
-                "showLogging": true,
-                "useBrowserForJS": false
-            };
+    <section>
+        <div class="item side">
+            <div class="toolbar">
+                Download Table as .csv:
+                <button id="Download" onclick="downloadTable(tableData)">Download</button>
+            </div>
+            <div class="results">
+                <table id="results">
+                    <tr>
+                        <th>Writhe</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="item main">
+            <div class="toolbar">
+                <form onchange="updateWrithe(ggbApi)">
+                    <select id="writheType" name="writheType">
+                        <option value="derivada">Derivada</option>
+                        <option value="volum">Volum</option>
+                    </select>
+                    <label for="A">A</label>
+                    <input type="checkbox" name="perturbated" id="A">
+                    <label for="B">B</label>
+                    <input type="checkbox" name="perturbated" id="B" checked=true>
+                    <label for="C">C</label>
+                    <input type="checkbox" name="perturbated" id="C">
+                    <label for="D">D</label>
+                    <input type="checkbox" name="perturbated" id="D" checked=true>
+                    <textarea id="eps" rows="1" cols="6">0.01</textarea>
+                    <label for="" id="currentWritheStr">writhe: --- </label>
+                    <input value="Save to table" id="Save to table" disabled onclick="saveWritheToTable()" type="button">
+                    <input value="Reset" onclick="ggbReset(ggbApi)" type="button">
+                </form>
+            </div>
+            <div id="ggb-element" class="ggb"></div>
+        </div>
+    </section>
 
-            var ggbApplet = new GGBApplet(parameters, true);
-            //  when used with Math Apps Bundle, uncomment this:
-            //  applet.setHTML5Codebase('GeoGebra/HTML5/5.0/web3d/');
-            window.addEventListener("load", function() {
-                ggbApplet.inject('ggb-element');
-            });
-        </script>
-
-        <div id="ggb-element"></div>
-
-    </div>
+    <footer>
+        foot
+    </footer>
 </body>
 
 </html>

@@ -1,0 +1,44 @@
+body {
+    background-color: gray;
+    margin: 0px;
+    font-family: 'Avenir';
+}
+
+header {
+    margin: 0px;
+    padding: 20px;
+    color: white;
+    background-color: black;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    gap: 10px;
+}
+
+.item {
+    background-color: blue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.item.side {
+    width: 30%;
+}
+
+.item.main {
+    width: 60%
+}
+
+div {
+    padding: 10px;
+    background-color: green;
+    margin-top: 5px;
+}
+
+div.ggb div {
+    padding: 0px;
+    margin: 0px;
+}
