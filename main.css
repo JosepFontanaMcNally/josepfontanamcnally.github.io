@@ -29,6 +29,7 @@ section {
     justify-content: center;
     /* gap: 0px; */
     background-image: url('https://www.riverpointfamilydental.com/wp-content/uploads/2016/05/Background-fade.jpg');
+    background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
