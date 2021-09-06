@@ -7,7 +7,6 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="main.css">
     <!-- Coses de GeoGebra -->
-    <script src="navigation.js"></script>
     <script type="text/javascript" src="deployggb.js"></script>
     <script type="text/javascript" src="ggb_controler.js"></script>
     <script type="text/javascript" src="writheCalculator.js"></script>
@@ -24,14 +23,17 @@
     <section>
         <div class="item side">
             <div class="download pannel">
-                <form action="index.html" method="post">
+                <form action="index.html" method="post" class="fileForm">
                     <label for="Download">Download Table as .csv:</label>
                     <input type="button" id="Download" onclick="downloadTable(tableData)" name="Download" value="">
+                    <label for="uploadCsv" id="UploadLabel">Upload .csv: <div id="uploadButton"></div></label>
+                    <input type="file" name="uploadCsv" value="" id="uploadCsv" onchange="readCSV(this)" accept=".csv">
                 </form>
             </div>
             <div class="results pannel">
-                <table id="results">
+                <table id="resultsTable">
                     <tr>
+                        <th class="buttonsCol">Options</th>
                         <th class="TableWrithe">Writhe</th>
                         <th class="TableA">A</th>
                         <th class="TableB">B</th>
