@@ -62,8 +62,8 @@ function writheCalculator(Acoords, Bcoords, Ccoords, Dcoords, writheType, pertur
     N4.divideBy(N4.mag);
 
     var prec = 13;
-    var sum = Math.asin(N1.dot(N2).toFixed(prec)) + Math.asin(N2.dot(N3).toFixed(prec)) +
-        Math.asin(N3.dot(N4).toFixed(prec)) + Math.asin(N4.dot(N1).toFixed(prec));
+    var sum = Math.asin(N1.dot(N2).toPrecision(prec)) + Math.asin(N2.dot(N3).toPrecision(prec)) +
+        Math.asin(N3.dot(N4).toPrecision(prec)) + Math.asin(N4.dot(N1).toPrecision(prec));
 
     // result
     var gli = 0;

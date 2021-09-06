@@ -8,7 +8,7 @@ var parameters = {
     "borderColor": null,
     "showMenuBar": false,
     "allowStyleBar": true,
-    "showAlgebraInput": false,
+    "showAlgebraInput": true,
     "enableLabelDrags": false,
     "enableShiftDragZoom": true,
     "enableUndoRedo": false,
@@ -22,16 +22,32 @@ var parameters = {
 
 parameters.appletOnLoad = function(api) {
 
+    function getNumPoints() {
+        var n = 0;
+        if (api.exists('A')) ++n;
+        if (api.exists('B')) ++n;
+        if (api.exists('C')) ++n;
+        if (api.exists('D')) ++n;
+        if (api.exists('E')) n = 5;
+        return n;
+    }
+
     function addListener(objName) {
         // Format segments
         if (api.getObjectType(objName) == "segment" || api.getObjectType(objName) == "line") {
             api.setLabelVisible(objName, false);
         }
+        // if (api.exists('A') && api.exists('B') && !api.exists('f')) {
+        //     api.evalCommand("f = Line(A,B)");
+        // }
+        // if (api.exists('C') && api.exists('D') && !api.exists('g')) {
+        //     api.evalCommand("g = Line(C,D)");
+        // }
         // When all points are placed...
-        if (api.getObjectNumber() == 6) {
-            api.setMode(1); // sets tool to "point"
+        if (getNumPoints() == 4 && api.exists('g')) {
+            api.setMode(0); // sets tool to "point"
             document.getElementById("Save to table").disabled = false; // Activates save button
-        } else if (api.getObjectNumber() == 7) { // If a new point is placed...
+        } else if (getNumPoints() == 5) { // If a new point is placed...
             const x = api.getXcoord(objName)
             const y = api.getYcoord(objName)
             ggbReset(api); // ... everything is cleared ...
@@ -41,7 +57,7 @@ parameters.appletOnLoad = function(api) {
     }
 
     function removeListener(objName) {
-        if (api.getObjectNumber() < 5) {
+        if (getNumPoints() < 4) {
             api.setMode(15); // set tool to segment
             document.getElementById("Save to table").disabled = true;
         }
