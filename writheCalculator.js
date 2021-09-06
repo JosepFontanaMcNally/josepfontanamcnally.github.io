@@ -61,7 +61,7 @@ function writheCalculator(Acoords, Bcoords, Ccoords, Dcoords, writheType, pertur
     var N4 = BC.cross(AC);
     N4.divideBy(N4.mag);
 
-    var prec = 13;
+    var prec = 10;
     var sum = Math.asin(N1.dot(N2).toPrecision(prec)) + Math.asin(N2.dot(N3).toPrecision(prec)) +
         Math.asin(N3.dot(N4).toPrecision(prec)) + Math.asin(N4.dot(N1).toPrecision(prec));
 
@@ -73,7 +73,7 @@ function writheCalculator(Acoords, Bcoords, Ccoords, Dcoords, writheType, pertur
         gli = sign * sum / (epsilon * 4 * Math.PI);
     } else if (writheType == "volum") {
         var V = Math.abs(AD.dot(BD.cross(CD))) / 6;
-        gli = (sign * sum) / (V * 4 * Math.PI);
+        gli = sum / (V * 4 * Math.PI);
     }
 
     return gli;
